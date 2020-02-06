@@ -12,8 +12,8 @@ def register_hook(flask_app: Flask):
 
 
 def register_blueprint(flask_app: Flask):
-    from app.views.auth import login
-    flask_app.register_blueprint(login.api.blueprint)
+    from app.views.apis.info.personal import assignment
+    flask_app.register_blueprint(assignment.api.blueprint)
 
     from app.views.test import test
     flask_app.register_blueprint(test.api.blueprint)

@@ -13,15 +13,14 @@ api = Api(Blueprint(__name__,__name__))
 @api.resource("/test")
 class test(Resource):
     def get(self):
-        test = HomeworkModel(
-            homework_1_deadline = time.gmtime(time.time()),
-            homework_2_deadline = time.gmtime(time.time()),
-            homework_3_deadline = time.gmtime(time.time()),
-            homework_4_deadline = time.gmtime(time.time()),
-            homework_title = "TestTitle",
-            homework_description = "testdescription",
-            homework_type = 1,
-            created_at = time.gmtime(time.time())
-        )
-        db.session.add(test)
-        db.session.commit()
+        test = HomeworkModel.query.filter_by().all()
+        for te in test:
+            print(te.id)
+            print(te.homework_1_deadline)
+            print(te.homework_2_deadline)
+            print(te.homework_3_deadline)
+            print(te.homework_4_deadline)
+            print(te.homework_title)
+            print(te.homework_description)
+            print(te.homework_type)
+            print(te.created_at)
