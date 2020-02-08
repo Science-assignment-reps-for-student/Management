@@ -1,7 +1,7 @@
 from app.extension import db
 
 class SinglefileModel(db.Model):
-    __tablename__ = 'singlefiles'
+    __tablename__ = 'single_files'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer)

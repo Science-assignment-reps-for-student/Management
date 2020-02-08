@@ -19,21 +19,15 @@ class personal_homework(Resource):
         personal_homeworks = HomeworkModel.query.filter_by(homework_type=0).all()
 
         res = []
-        print(SinglefileModel.query.filter_by().all())
 
         for personal_homework in personal_homeworks:
             c_1, c_2, c_3, c_4 = [], [], [], []
-            users = UserModel.query.order_by(UserModel.user_number.desc()).all()
+            users = UserModel.query.order_by(UserModel.user_number.asc()).all()
             for user in users:
-                print(SinglefileModel.homework_id, personal_homework.id)
-                print(SinglefileModel.user_id, user.id)
-                print(user, users)
-                print(SinglefileModel)
                 singlefiles = SinglefileModel.query.filter(and_(
                     SinglefileModel.homework_id == personal_homework.id,
                     SinglefileModel.user_id == user.id)
                 ).first()
-                print(singlefiles)
                 user_class = int(str(user.user_number)[1])
                 if user_class == 1:
                     if singlefiles is None: c_1.append({
@@ -93,24 +87,22 @@ class personal_homework(Resource):
                 "homework_description": personal_homework.homework_description,
                 "created_at": time.mktime(personal_homework.created_at.timetuple()),
                 "class_1": {
-                    "deadline": personal_homework.homework_1_deadline,
+                    "deadline": time.mktime(personal_homework.homework_1_deadline.timetuple()),
                     "submit_list": c_1
                 },
                 "class_2": {
-                    "deadline": personal_homework.homework_1_deadline,
+                    "deadline": time.mktime(personal_homework.homework_1_deadline.timetuple()),
                     "submit_list": c_2
                 },
                 "class_3": {
-                    "deadline": personal_homework.homework_1_deadline,
+                    "deadline": time.mktime(personal_homework.homework_1_deadline.timetuple()),
                     "submit_list": c_3
                 },
                 "class_4": {
-                    "deadline": personal_homework.homework_1_deadline,
+                    "deadline": time.mktime(personal_homework.homework_1_deadline.timetuple()),
                     "submit_list": c_4
                 },
             })
-
-        print(res)
 
         return {
             "homework_type": 0,
