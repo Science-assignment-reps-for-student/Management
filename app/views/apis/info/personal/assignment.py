@@ -91,15 +91,15 @@ class personal_homework(Resource):
                     "submit_list": c_1
                 },
                 "class_2": {
-                    "deadline": time.mktime(personal_homework.homework_1_deadline.timetuple()),
+                    "deadline": time.mktime(personal_homework.homework_2_deadline.timetuple()),
                     "submit_list": c_2
                 },
                 "class_3": {
-                    "deadline": time.mktime(personal_homework.homework_1_deadline.timetuple()),
+                    "deadline": time.mktime(personal_homework.homework_3_deadline.timetuple()),
                     "submit_list": c_3
                 },
                 "class_4": {
-                    "deadline": time.mktime(personal_homework.homework_1_deadline.timetuple()),
+                    "deadline": time.mktime(personal_homework.homework_4_deadline.timetuple()),
                     "submit_list": c_4
                 },
             })
