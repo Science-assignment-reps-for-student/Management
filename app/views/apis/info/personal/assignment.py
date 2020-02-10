@@ -40,11 +40,18 @@ class personal_homework(Resource):
                             "submit": 0
                         })
                     else:
-                        c_1.append({
-                            "user_name": user.user_name,
-                            "user_number": user.user_number,
-                            "submit": 1
-                        })
+                        if singlefiles.late == False:
+                            c_1.append({
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
+                                "submit": 1
+                            })
+                        else:
+                            c_1.append({
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
+                                "submit": 2
+                            })
                 elif user_class == 2:
                     if singlefiles is None:
                         c_2.append({
@@ -53,11 +60,18 @@ class personal_homework(Resource):
                             "submit": 0
                         })
                     else:
-                        c_2.append({
-                            "user_name": user.user_name,
-                            "user_number": user.user_number,
-                            "submit": 1
-                        })
+                        if singlefiles.late == False:
+                            c_2.append({
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
+                                "submit": 1
+                            })
+                        else:
+                            c_2.append({
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
+                                "submit": 2
+                            })
                 elif user_class == 3:
                     if singlefiles is None:
                         c_3.append({
@@ -66,11 +80,18 @@ class personal_homework(Resource):
                             "submit": 0
                         })
                     else:
-                        c_3.append({
-                            "user_name": user.user_name,
-                            "user_number": user.user_number,
-                            "submit": 1
-                        })
+                        if singlefiles.late == False:
+                            c_3.append({
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
+                                "submit": 1
+                            })
+                        else:
+                            c_3.append({
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
+                                "submit": 2
+                            })
                 elif user_class == 4:
                     if singlefiles is None:
                         c_4.append({
@@ -79,11 +100,18 @@ class personal_homework(Resource):
                             "submit": 0
                         })
                     else:
-                        c_4.append({
-                            "user_name": user.user_name,
-                            "user_number": user.user_number,
-                            "submit": 1
-                        })
+                        if singlefiles.late == False:
+                            c_4.append({
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
+                                "submit": 1
+                            })
+                        else:
+                            c_4.append({
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
+                                "submit": 2
+                            })
 
             res.append({
                 "homework_id": personal_homework.id,

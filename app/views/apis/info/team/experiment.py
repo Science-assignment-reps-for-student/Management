@@ -46,11 +46,18 @@ class experiment_homework(Resource):
                             "submit": 0
                         })
                     else:
-                        c_1.append({
-                            "user_name": user.user_name,
-                            "user_number": user.user_number,
-                            "submit": 1
-                        })
+                        if singlefiles.late == False:
+                            c_1.append({
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
+                                "submit": 1
+                            })
+                        else:
+                            c_1.append({
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
+                                "submit": 2
+                            })
                 elif user_class == 2:
                     if singlefiles is None:
                         c_2.append({
@@ -59,11 +66,18 @@ class experiment_homework(Resource):
                             "submit": 0
                         })
                     else:
-                        c_2.append({
-                            "user_name": user.user_name,
-                            "user_number": user.user_number,
-                            "submit": 1
-                        })
+                        if singlefiles.late == False:
+                            c_2.append({
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
+                                "submit": 1
+                            })
+                        else:
+                            c_2.append({
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
+                                "submit": 2
+                            })
                 elif user_class == 3:
                     if singlefiles is None:
                         c_3.append({
@@ -72,11 +86,18 @@ class experiment_homework(Resource):
                             "submit": 0
                         })
                     else:
-                        c_3.append({
-                            "user_name": user.user_name,
-                            "user_number": user.user_number,
-                            "submit": 1
-                        })
+                        if singlefiles.late == False:
+                            c_3.append({
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
+                                "submit": 1
+                            })
+                        else:
+                            c_3.append({
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
+                                "submit": 2
+                            })
                 elif user_class == 4:
                     if singlefiles is None:
                         c_4.append({
@@ -85,11 +106,18 @@ class experiment_homework(Resource):
                             "submit": 0
                         })
                     else:
-                        c_4.append({
-                            "user_name": user.user_name,
-                            "user_number": user.user_number,
-                            "submit": 1
-                        })
+                        if singlefiles.late == False:
+                            c_4.append({
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
+                                "submit": 1
+                            })
+                        else:
+                            c_4.append({
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
+                                "submit": 2
+                            })
 
             c_1_t, c_2_t, c_3_t, c_4_t = [], [], [], []
             teams = TeamModel.query.filter_by(homework_id=experiment.id).all()
@@ -117,16 +145,25 @@ class experiment_homework(Resource):
                             "submit": 0
                         })
                     else:
-                        c_1_t.append({
-                            "team_name": team.team_name,
-                            "leader_name": leader.user_name,
-                            "leader_number": leader.user_number,
-                            "team_info": member,
-                            "submit": 1
-                        })
+                        if multifile.late == False:
+                            c_1_t.append({
+                                "team_name": team.team_name,
+                                "leader_name": leader.user_name,
+                                "leader_number": leader.user_number,
+                                "team_info": member,
+                                "submit": 1
+                            })
+                        else:
+                            c_1_t.append({
+                                "team_name": team.team_name,
+                                "leader_name": leader.user_name,
+                                "leader_number": leader.user_number,
+                                "team_info": member,
+                                "submit": 2
+                            })
                 if team_class == 2:
                     if multifile is None:
-                        c_1_t.append({
+                        c_2_t.append({
                             "team_name": team.team_name,
                             "leader_name": leader.user_name,
                             "leader_number": leader.user_number,
@@ -134,16 +171,25 @@ class experiment_homework(Resource):
                             "submit": 0
                         })
                     else:
-                        c_1_t.append({
-                            "team_name": team.team_name,
-                            "leader_name": leader.user_name,
-                            "leader_number": leader.user_number,
-                            "team_info": member,
-                            "submit": 1
-                        })
+                        if multifile.late == False:
+                            c_2_t.append({
+                                "team_name": team.team_name,
+                                "leader_name": leader.user_name,
+                                "leader_number": leader.user_number,
+                                "team_info": member,
+                                "submit": 1
+                            })
+                        else:
+                            c_2_t.append({
+                                "team_name": team.team_name,
+                                "leader_name": leader.user_name,
+                                "leader_number": leader.user_number,
+                                "team_info": member,
+                                "submit": 2
+                            })
                 if team_class == 3:
                     if multifile is None:
-                        c_1_t.append({
+                        c_3_t.append({
                             "team_name": team.team_name,
                             "leader_name": leader.user_name,
                             "leader_number": leader.user_number,
@@ -151,16 +197,25 @@ class experiment_homework(Resource):
                             "submit": 0
                         })
                     else:
-                        c_1_t.append({
-                            "team_name": team.team_name,
-                            "leader_name": leader.user_name,
-                            "leader_number": leader.user_number,
-                            "team_info": member,
-                            "submit": 1
-                        })
+                        if multifile.late == False:
+                            c_3_t.append({
+                                "team_name": team.team_name,
+                                "leader_name": leader.user_name,
+                                "leader_number": leader.user_number,
+                                "team_info": member,
+                                "submit": 1
+                            })
+                        else:
+                            c_3_t.append({
+                                "team_name": team.team_name,
+                                "leader_name": leader.user_name,
+                                "leader_number": leader.user_number,
+                                "team_info": member,
+                                "submit": 2
+                            })
                 if team_class == 4:
                     if multifile is None:
-                        c_1_t.append({
+                        c_4_t.append({
                             "team_name": team.team_name,
                             "leader_name": leader.user_name,
                             "leader_number": leader.user_number,
@@ -168,13 +223,22 @@ class experiment_homework(Resource):
                             "submit": 0
                         })
                     else:
-                        c_1_t.append({
-                            "team_name": team.team_name,
-                            "leader_name": leader.user_name,
-                            "leader_number": leader.user_number,
-                            "team_info": member,
-                            "submit": 1
-                        })
+                        if multifile.late == False:
+                            c_4_t.append({
+                                "team_name": team.team_name,
+                                "leader_name": leader.user_name,
+                                "leader_number": leader.user_number,
+                                "team_info": member,
+                                "submit": 1
+                            })
+                        else:
+                            c_4_t.append({
+                                "team_name": team.team_name,
+                                "leader_name": leader.user_name,
+                                "leader_number": leader.user_number,
+                                "team_info": member,
+                                "submit": 2
+                            })
 
             res.append({
                 "homework_id": experiment.id,
