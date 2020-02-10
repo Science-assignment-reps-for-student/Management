@@ -1,14 +1,14 @@
-import os
 import time
 
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_restful import Api, Resource
 from sqlalchemy import and_
 
-from app.extension import db
 from app.models.homework import HomeworkModel
 from app.models.singlefiles import SinglefileModel
 from app.models.user import UserModel
+
+from app.services import jwt_checker, user_type_checker
 
 
 api = Api(Blueprint(__name__,__name__))
@@ -16,6 +16,10 @@ api = Api(Blueprint(__name__,__name__))
 @api.resource("/admin/homework/personal")
 class personal_homework(Resource):
     def get(self):
+        type = user_type_checker(jwt_checker(request.headers["Authorization"][7:]))
+
+        if not (type == 1 or type == 2): return {"message":"your not admin"}
+
         personal_homeworks = HomeworkModel.query.filter_by(homework_type=0).all()
 
         res = []
