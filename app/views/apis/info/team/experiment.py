@@ -14,6 +14,8 @@ from app.models.multifiles import MultifileModel
 from app.models.user import UserModel
 from app.models.team import TeamModel
 from app.models.members import MemberModel
+from app.models.self_ev import SelfevaluationModel
+from app.models.mutual_ev import MutualevaluationModel
 
 
 api = Api(Blueprint(__name__,__name__))
@@ -33,210 +35,172 @@ class experiment_homework(Resource):
             c_1, c_2, c_3, c_4 = [], [], [], []             # check
             users = UserModel.query.order_by(UserModel.user_number.asc()).all()
             for user in users:
-                singlefiles = SinglefileModel.query.filter(and_(
-                    SinglefileModel.homework_id == experiment.id,
-                    SinglefileModel.user_id == user.id)
-                ).first()
+                s_evaluation = SelfevaluationModel.query.filter(and_(
+                    SelfevaluationModel.user_id == user.id,
+                    SelfevaluationModel.homework_id == experiment.id
+                )).first()
+
+                m_evaluations = MutualevaluationModel.query.filter(and_(
+                    MutualevaluationModel.user_id == user.id,
+                    MutualevaluationModel.homework_id == experiment.id,
+                )).count()
+                print("1")
+
+                member_count = 0
+                l_1_a = MemberModel.query.filter_by(user_id=user.id).all()
+                for l_1 in l_1_a:
+                    t_1 = TeamModel.query.filter_by(id=l_1.team_id).first()
+                    if t_1.homework_id == experiment.id:
+                        member_count = MemberModel.query.filter_by(team_id=t_1.id).count()
+                        break
+
+                print("2")
+
+                if m_evaluations == member_count and s_evaluation:
+                    flag = False
+                else: flag = True
+                print("3")
 
                 user_class = int(str(user.user_number)[1])
                 if user_class == 1:
-                    if singlefiles is None: c_1.append({
+                    if flag:
+                        c_1.append({
                             "user_name": user.user_name,
                             "user_number": user.user_number,
                             "submit": 0
                         })
                     else:
-                        if singlefiles.late == False:
-                            c_1.append({
-                                "user_name": user.user_name,
-                                "user_number": user.user_number,
-                                "submit": 1
-                            })
-                        else:
-                            c_1.append({
-                                "user_name": user.user_name,
-                                "user_number": user.user_number,
-                                "submit": 2
-                            })
+                        c_1.append({
+                            "user_name": user.user_name,
+                            "user_number": user.user_number,
+                            "submit": 1
+                        })
                 elif user_class == 2:
-                    if singlefiles is None:
+                    if flag:
                         c_2.append({
                             "user_name": user.user_name,
                             "user_number": user.user_number,
                             "submit": 0
                         })
                     else:
-                        if singlefiles.late == False:
-                            c_2.append({
-                                "user_name": user.user_name,
-                                "user_number": user.user_number,
-                                "submit": 1
-                            })
-                        else:
-                            c_2.append({
-                                "user_name": user.user_name,
-                                "user_number": user.user_number,
-                                "submit": 2
-                            })
+                        c_2.append({
+                            "user_name": user.user_name,
+                            "user_number": user.user_number,
+                            "submit": 1
+                        })
                 elif user_class == 3:
-                    if singlefiles is None:
+                    if flag:
                         c_3.append({
                             "user_name": user.user_name,
                             "user_number": user.user_number,
                             "submit": 0
                         })
                     else:
-                        if singlefiles.late == False:
-                            c_3.append({
-                                "user_name": user.user_name,
-                                "user_number": user.user_number,
-                                "submit": 1
-                            })
-                        else:
-                            c_3.append({
-                                "user_name": user.user_name,
-                                "user_number": user.user_number,
-                                "submit": 2
-                            })
+                        c_3.append({
+                            "user_name": user.user_name,
+                            "user_number": user.user_number,
+                            "submit": 1
+                        })
                 elif user_class == 4:
-                    if singlefiles is None:
+                    if flag:
                         c_4.append({
                             "user_name": user.user_name,
                             "user_number": user.user_number,
                             "submit": 0
                         })
                     else:
-                        if singlefiles.late == False:
-                            c_4.append({
-                                "user_name": user.user_name,
-                                "user_number": user.user_number,
-                                "submit": 1
-                            })
-                        else:
-                            c_4.append({
-                                "user_name": user.user_name,
-                                "user_number": user.user_number,
-                                "submit": 2
-                            })
+                        c_4.append({
+                            "user_name": user.user_name,
+                            "user_number": user.user_number,
+                            "submit": 1
+                        })
 
             c_1_t, c_2_t, c_3_t, c_4_t = [], [], [], []
-            teams = TeamModel.query.filter_by(homework_id=experiment.id).all()
-            for team in teams:
-                multifile = MultifileModel.query.filter_by(team_id=team.id).first()
-                leader = UserModel.query.filter_by(id=team.leader_id).first()
-                team_infos = MemberModel.query.filter_by(team_id=team.id).all()
-                team_class = int(str(leader.user_number)[1])
-                member = []
-
-                for team_info in team_infos:
-                    member_info = UserModel.query.filter_by(id=team_info.user_id).first()
-                    member.append({
-                        "member_name": member_info.user_name,
-                        "member_number": member_info.user_number
-                    })
-
-                if team_class == 1:
-                    if multifile is None:
+            users = UserModel.query.order_by(UserModel.user_number.asc()).all()
+            for user in users:
+                singlefiles = SinglefileModel.query.filter(and_(
+                    SinglefileModel.homework_id == experiment.id,
+                    SinglefileModel.user_id == user.id)
+                ).first()
+                user_class = int(str(user.user_number)[1])
+                if user_class == 1:
+                    if singlefiles is None:
                         c_1_t.append({
-                            "team_name": team.team_name,
-                            "leader_name": leader.user_name,
-                            "leader_number": leader.user_number,
-                            "team_info": member,
+                            "user_name": user.user_name,
+                            "user_number": user.user_number,
                             "submit": 0
                         })
                     else:
-                        if multifile.late == False:
+                        if singlefiles.late == False:
                             c_1_t.append({
-                                "team_name": team.team_name,
-                                "leader_name": leader.user_name,
-                                "leader_number": leader.user_number,
-                                "team_info": member,
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
                                 "submit": 1
                             })
                         else:
                             c_1_t.append({
-                                "team_name": team.team_name,
-                                "leader_name": leader.user_name,
-                                "leader_number": leader.user_number,
-                                "team_info": member,
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
                                 "submit": 2
                             })
-                if team_class == 2:
-                    if multifile is None:
+                elif user_class == 2:
+                    if singlefiles is None:
                         c_2_t.append({
-                            "team_name": team.team_name,
-                            "leader_name": leader.user_name,
-                            "leader_number": leader.user_number,
-                            "team_info": member,
+                            "user_name": user.user_name,
+                            "user_number": user.user_number,
                             "submit": 0
                         })
                     else:
-                        if multifile.late == False:
+                        if singlefiles.late == False:
                             c_2_t.append({
-                                "team_name": team.team_name,
-                                "leader_name": leader.user_name,
-                                "leader_number": leader.user_number,
-                                "team_info": member,
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
                                 "submit": 1
                             })
                         else:
                             c_2_t.append({
-                                "team_name": team.team_name,
-                                "leader_name": leader.user_name,
-                                "leader_number": leader.user_number,
-                                "team_info": member,
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
                                 "submit": 2
                             })
-                if team_class == 3:
-                    if multifile is None:
+                elif user_class == 3:
+                    if singlefiles is None:
                         c_3_t.append({
-                            "team_name": team.team_name,
-                            "leader_name": leader.user_name,
-                            "leader_number": leader.user_number,
-                            "team_info": member,
+                            "user_name": user.user_name,
+                            "user_number": user.user_number,
                             "submit": 0
                         })
                     else:
-                        if multifile.late == False:
+                        if singlefiles.late == False:
                             c_3_t.append({
-                                "team_name": team.team_name,
-                                "leader_name": leader.user_name,
-                                "leader_number": leader.user_number,
-                                "team_info": member,
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
                                 "submit": 1
                             })
                         else:
                             c_3_t.append({
-                                "team_name": team.team_name,
-                                "leader_name": leader.user_name,
-                                "leader_number": leader.user_number,
-                                "team_info": member,
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
                                 "submit": 2
                             })
-                if team_class == 4:
-                    if multifile is None:
+                elif user_class == 4:
+                    if singlefiles is None:
                         c_4_t.append({
-                            "team_name": team.team_name,
-                            "leader_name": leader.user_name,
-                            "leader_number": leader.user_number,
-                            "team_info": member,
+                            "user_name": user.user_name,
+                            "user_number": user.user_number,
                             "submit": 0
                         })
                     else:
-                        if multifile.late == False:
+                        if singlefiles.late == False:
                             c_4_t.append({
-                                "team_name": team.team_name,
-                                "leader_name": leader.user_name,
-                                "leader_number": leader.user_number,
-                                "team_info": member,
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
                                 "submit": 1
                             })
                         else:
                             c_4_t.append({
-                                "team_name": team.team_name,
-                                "leader_name": leader.user_name,
-                                "leader_number": leader.user_number,
-                                "team_info": member,
+                                "user_name": user.user_name,
+                                "user_number": user.user_number,
                                 "submit": 2
                             })
 
@@ -247,23 +211,23 @@ class experiment_homework(Resource):
                 "created_at": time.mktime(experiment.created_at.timetuple()),
                 "class_1": {
                     "deadline": time.mktime(experiment.homework_1_deadline.timetuple()),
-                    "personal_submit_list": c_1,
-                    "team_submit_list": c_1_t
+                    "env_submit_list": c_1,
+                    "experiment_submit_list": c_1_t
                 },
                 "class_2": {
                     "deadline": time.mktime(experiment.homework_2_deadline.timetuple()),
-                    "personal_submit_list": c_2,
-                    "team_submit_list": c_2_t
+                    "env_submit_list": c_2,
+                    "experiment_submit_list": c_2_t
                 },
                 "class_3": {
                     "deadline": time.mktime(experiment.homework_3_deadline.timetuple()),
-                    "personal_submit_list": c_3,
-                    "team_submit_list": c_3_t
+                    "env_submit_list": c_3,
+                    "experiment_submit_list": c_3_t
                 },
                 "class_4": {
                     "deadline": time.mktime(experiment.homework_4_deadline.timetuple()),
-                    "personal_submit_list": c_4,
-                    "team_submit_list": c_4_t
+                    "env_submit_list": c_4,
+                    "experiment_submit_list": c_4_t
                 },
             })
 
