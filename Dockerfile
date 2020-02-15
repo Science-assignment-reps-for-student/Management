@@ -8,6 +8,6 @@ COPY . .
 WORKDIR .
 
 RUN pip install -r requirements
-ENTRYPOINT ["python", "Management/production.py"]
+ENTRYPOINT ["python", "production.py"]
 
 EXPOSE 3000
