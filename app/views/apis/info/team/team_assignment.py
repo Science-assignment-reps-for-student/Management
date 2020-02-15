@@ -19,6 +19,7 @@ from app.models.mutual_ev import MutualevaluationModel
 
 
 api = Api(Blueprint(__name__,__name__))
+api.prefix = "/tenderloin"
 
 @api.resource("/admin/homework/team")
 class experiment_homework(Resource):
