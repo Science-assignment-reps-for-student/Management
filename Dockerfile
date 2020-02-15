@@ -10,4 +10,4 @@ WORKDIR .
 RUN pip install -r requirements
 ENTRYPOINT ["python", "production.py"]
 
-EXPOSE 3000
+EXPOSE 5000
