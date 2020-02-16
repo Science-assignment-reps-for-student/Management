@@ -45,7 +45,7 @@ class experiment_homework(Resource):
                     MutualevaluationModel.user_id == user.id,
                     MutualevaluationModel.homework_id == experiment.id,
                 )).count()
-                print("1")
+
 
                 member_count = 0
                 l_1_a = MemberModel.query.filter_by(user_id=user.id).all()
@@ -55,12 +55,10 @@ class experiment_homework(Resource):
                         member_count = MemberModel.query.filter_by(team_id=t_1.id).count()
                         break
 
-                print("2")
 
                 if m_evaluations == member_count and s_evaluation:
                     flag = False
                 else: flag = True
-                print("3")
 
                 user_class = int(str(user.user_number)[1])
                 if user_class == 1:
