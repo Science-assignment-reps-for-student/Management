@@ -12,6 +12,7 @@ from app.services import jwt_checker, user_type_checker
 
 
 api = Api(Blueprint(__name__,__name__))
+api.prefix = "/tenderloin"
 
 
 @api.resource("/admin/homework/personal")

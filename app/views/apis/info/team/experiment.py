@@ -19,6 +19,7 @@ from app.models.mutual_ev import MutualevaluationModel
 
 
 api = Api(Blueprint(__name__,__name__))
+api.prefix = "/tenderloin"
 
 
 @api.resource("/admin/homework/experiment")
@@ -54,7 +55,7 @@ class experiment_homework(Resource):
                         member_count = MemberModel.query.filter_by(team_id=t_1.id).count()
                         break
 
-                if m_evaluations == member_count and s_evaluation:
+                if m_evaluations == member_count - 1 and s_evaluation:
                     flag = False
                 else: flag = True
 
