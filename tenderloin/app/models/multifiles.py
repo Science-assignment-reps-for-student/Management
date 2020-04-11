@@ -1,10 +1,11 @@
-from app.extension import db
+from tenderloin.app.extension import db
 
-class SinglefileModel(db.Model):
-    __tablename__ = 'single_files'
+
+class MultifileModel(db.Model):
+    __tablename__ = "multi_files"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer)
+    team_id = db.Column(db.Integer)
     homework_id = db.Column(db.Integer)
     source = db.Column(db.String)
     created_at = db.Column(db.DateTime)

@@ -1,7 +1,8 @@
-from app.extension import db
+from tenderloin.app.extension import db
+
 
 class MutualevaluationModel(db.Model):
-    __tablename__ = 'mutual_evaluations'
+    __tablename__ = "mutual_evaluations"
 
     id = db.Column(db.Integer, primary_key=True)
     cooperation = db.Column(db.Integer)
