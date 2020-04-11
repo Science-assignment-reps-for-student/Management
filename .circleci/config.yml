@@ -4,18 +4,10 @@ version: 2.1
 jobs:
   build:
     docker:
-    - image: migsking/tenderloin:0.0.7
-        # environment:
-        #   FLASK_CONFIG: 
+    - image: migsking/tenderloin:0.1.0
 
     steps:
       - checkout
-
-      # - run:
-      #     name: run tests
-      #     command: |
-      #       pytest --cov=./ ./test.py
-      #       codecov
       
 workflows:
   build:
