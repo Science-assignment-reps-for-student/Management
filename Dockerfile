@@ -1,13 +1,15 @@
 FROM python:3.8.1
 MAINTAINER mallycrip "migsking@naver.com"
 
-ENV SECRET_KEY_BASE $SECRET_KEY_BASE
-ENV SCARFS_PASSWORD $SCARFS_PASSWORD
+ENV FLASK_APP=tenderloin
+ENV FLASK_ENV=production
 
 COPY . .
 WORKDIR .
 
 RUN pip install -r requirements
-ENTRYPOINT ["python", "production.py"]
+
+ENTRYPOINT ["python"]
+CMD ["-m","tenderloin"]
 
 EXPOSE 5000

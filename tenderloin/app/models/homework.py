@@ -1,7 +1,8 @@
-from app.extension import db
+from tenderloin.app.extension import db
+
 
 class HomeworkModel(db.Model):
-    __tablename__ = 'homeworks'
+    __tablename__ = "homeworks"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     homework_1_deadline = db.Column(db.DateTime)
